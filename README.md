@@ -27,14 +27,14 @@ Options:
 
 ## Download
 
-You can download the compiled command with `get-kinesis-bulk-loader` like this:
+You can download the compiled command with [downloader](https://github.com/yokawasa/kinesis-bulk-loader/blob/main/downloader) like this:
 
 ```
 # Download latest command
-./get-kinesis-bulk-loader 
+./downloader
 
 # Download the command with a specified version
-./get-kinesis-bulk-loader v0.0.1
+./downloader v0.0.1
 ```
 
 Output would be like this:
