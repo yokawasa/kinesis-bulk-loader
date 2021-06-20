@@ -1,0 +1,22 @@
+#!/bin/sh
+
+DEFAULT_VERSION=$(curl -L -s https://raw.githubusercontent.com/yokawasa/kinesis-bulk-loader/main/VERSION)
+COMMAND_NAME="kinesis-bulk-loader"
+OS="$(uname)"
+
+if [ "${OS}" = "Darwin" ] ; then
+  OSTYPE="darwin"
+else
+  OSTYPE="linux"
+fi
+VERSION="$1"
+if [ -z "${VERSION}" ]; then
+  VERSION=${DEFAULT_VERSION}
+fi
+NAME="kinesis-bulk-loader_${OSTYPE}"
+
+echo "Downloading ${NAME} ..."
+curl -L -s https://github.com/yokawasa/kinesis-bulk-loader/releases/download/${VERSION}/${NAME} -o ${COMMAND_NAME}
+ls ${COMMAND_NAME} && chmod +x ${COMMAND_NAME}
+echo "Downloaded into ${COMMAND_NAME}"
+echo "Please add ${COMMAND_NAME} to your path; e.g copy paste in your shell and/or ~/.profile"
