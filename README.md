@@ -25,18 +25,27 @@ Options:
 
 ```
 
-## Build and Run
+## Download
 
-To build, simply run `make` like below
+You can download the compiled command with `get-kinesis-bulk-loader` like this:
+
 ```
-make
+# Download latest command
+./get-kinesis-bulk-loader 
 
-golint /Users/yoichika/dev/github/kinesis-bulk-loader
-GOOS=linux GOARCH=amd64 GO111MODULE=on go build -ldflags "-X main.buildVersion=v0.0.1" -o /Users/yoichika/dev/github/kinesis-bulk-loader/dist/kinesis-bulk-loader_linux /Users/yoichika/dev/github/kinesis-bulk-loader/src
-GOOS=darwin GOARCH=amd64 GO111MODULE=on go build -ldflags "-X main.buildVersion=v0.0.1" -o /Users/yoichika/dev/github/kinesis-bulk-loader/dist/kinesis-bulk-loader_darwin /Users/yoichika/dev/github/kinesis-bulk-loader/src
+# Download the command with a specified version
+./get-kinesis-bulk-loader v0.0.1
 ```
 
-Suppose you are using macOS, run the `kinesis-bulk-loader_darwin` (while `kinesis-bulk-loader_linux` if you are using Linux) like below
+Output would be like this:
+```
+Downloading kinesis-bulk-loader_darwin ...
+kinesis-bulk-loader
+Downloaded into kinesis-bulk-loader
+Please add kinesis-bulk-loader to your path; e.g copy paste in your shell and/or ~/.profile
+```
+
+## Execute the command
 
 ```bash
 stream_name=test-kds01
@@ -45,7 +54,7 @@ connections=10
 numcalls=10
 retry=1
 
-./dist/kinesis-bulk-loader_darwin \
+kinesis-bulk-loader \
   -stream ${stream_name} \
   -region ${region} \
   -c ${connections} \
@@ -72,6 +81,29 @@ Sent messages: 100
 Errors: 0
 Duration (sec): 2.349315041
 Average (ms): 23
+```
+
+## Build and Run (For Developer)
+
+To build, simply run `make` like below
+```
+make
+
+golint /Users/yoichika/dev/github/kinesis-bulk-loader
+GOOS=linux GOARCH=amd64 GO111MODULE=on go build -ldflags "-X main.buildVersion=v0.0.1" -o /Users/yoichika/dev/github/kinesis-bulk-loader/dist/kinesis-bulk-loader_linux /Users/yoichika/dev/github/kinesis-bulk-loader/src
+GOOS=darwin GOARCH=amd64 GO111MODULE=on go build -ldflags "-X main.buildVersion=v0.0.1" -o /Users/yoichika/dev/github/kinesis-bulk-loader/dist/kinesis-bulk-loader_darwin /Users/yoichika/dev/github/kinesis-bulk-loader/src
+```
+
+Suppose you are using macOS, run the `kinesis-bulk-loader_darwin` (while `kinesis-bulk-loader_linux` if you are using Linux) like below
+
+```bash
+./dist/kinesis-bulk-loader_darwin -stream test-kds01 -k hoge -m test -c 10 -n 100 -verbose
+```
+
+Finally clean built commands
+
+```
+make clean
 ```
 
 ## Relevant project
