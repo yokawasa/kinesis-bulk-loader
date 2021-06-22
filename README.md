@@ -36,6 +36,12 @@ You can download the compiled command with [downloader](https://github.com/yokaw
 # Download the command with a specified version
 ./downloader v0.0.2
 ```
+Or you can download it on the fly with the following commmand:
+
+```
+curl -sS https://raw.githubusercontent.com/yokawasa/kinesis-bulk-loader/main/downloader | bash --
+```
+
 
 Output would be like this:
 ```
