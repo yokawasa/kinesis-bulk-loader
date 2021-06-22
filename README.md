@@ -34,7 +34,7 @@ You can download the compiled command with [downloader](https://github.com/yokaw
 ./downloader
 
 # Download the command with a specified version
-./downloader v0.0.1
+./downloader v0.0.2
 ```
 
 Output would be like this:
