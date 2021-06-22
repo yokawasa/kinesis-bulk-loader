@@ -111,15 +111,19 @@ func (c *KinesisDataStreamProducer) startWorker(id int, wg *sync.WaitGroup, succ
 	message := c.Message + randomString
 	for i := 1; i <= c.NumCalls; i++ {
 		if c.Verbose {
-			fmt.Printf("[Verbose] Mssage Partition Key %s Body %s\n", c.PartitionKey, message)
+			fmt.Printf("[Verbose] Mssage: PartitionKey %s Data %s\n", c.PartitionKey, message)
 		}
 		err := retry(c.RetryNum, 2*time.Second, func() (err error) {
-			_, kcerr := kc.PutRecord(
+			pout, kcerr := kc.PutRecord(
 				&kinesis.PutRecordInput{
 					Data:         []byte(message),
 					StreamName:   &c.StreamName,
 					PartitionKey: &c.PartitionKey,
 				})
+			if c.Verbose {
+				fmt.Printf("[Verbose] PutRecord Result: PartitionKey %s SequenceNumber %s ShardId %s\n",
+					c.PartitionKey, *pout.SequenceNumber, *pout.ShardId)
+			}
 			return kcerr
 		})
 
