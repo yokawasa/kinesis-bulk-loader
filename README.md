@@ -67,12 +67,19 @@ kinesis-bulk-loader \
 
 Sample output would be like this:
 ```
-[Verbose] Mssage Partition Key testkey Body testbodyBpLnfgDsc2
-[Verbose] Mssage Partition Key testkey Body testbodyWD8F2qNfHK
-... snip ...
-[Verbose] Mssage Partition Key testkey Body testbody9IVUWSP2Nc
-[Verbose] Mssage Partition Key testkey Body testbodyWD8F2qNfHK
-[Verbose] Mssage Partition Key testkey Body testbodyhV3vC5AWX3
+[Verbose] Mssage: PartitionKey testkey Data testbody9IVUWSP2Nc
+[Verbose] Mssage: PartitionKey testkey Data testbodyBpLnfgDsc2
+[Verbose] Mssage: PartitionKey testkey Data testbodyDkh9h2fhfU
+[Verbose] Mssage: PartitionKey testkey Data testbodyUsaD6HEdz0
+[Verbose] PutRecord Result: PartitionKey testkey SequenceNumber 49619437532912338680531404070433076316966140521717170194 ShardId shardId-000000000001
+[Verbose] PutRecord Result: PartitionKey testkey SequenceNumber 49619437532912338680531404070434285242785755150891876370 ShardId shardId-000000000001
+[Verbose] Mssage: PartitionKey testkey Data testbodyDkh9h2fhfU
+[Verbose] PutRecord Result: PartitionKey testkey SequenceNumber 49619437532912338680531404070436703094424984409241288722 ShardId shardId-000000000001
+[Verbose] PutRecord Result: PartitionKey testkey SequenceNumber 49619437532912338680531404070439120946064213736310177810 ShardId shardId-000000000001
+[Verbose] Mssage: PartitionKey testkey Data testbodyWD8F2qNfHK
+[Verbose] PutRecord Result: PartitionKey testkey SequenceNumber 49619437532912338680531404070443956649342672253009002514 ShardId shardId-000000000001
+
+...snip...
 
 -----------------------
 Kinesis Bulk Loader Summary
