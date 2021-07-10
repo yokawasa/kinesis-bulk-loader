@@ -47,7 +47,9 @@ curl -sS https://raw.githubusercontent.com/yokawasa/kinesis-bulk-loader/main/dow
 
 Output would be like this:
 ```
-Downloading kinesis-bulk-loader_darwin ...
+Downloading kinesis-bulk-loader_darwin_amd64 ...
+Archive:  kinesis-bulk-loader.zip
+  inflating: kinesis-bulk-loader_darwin_amd64
 kinesis-bulk-loader
 Downloaded into kinesis-bulk-loader
 Please add kinesis-bulk-loader to your path; e.g copy paste in your shell and/or ~/.profile
@@ -105,14 +107,15 @@ To build, simply run `make` like below
 make
 
 golint /Users/yoichika/dev/github/kinesis-bulk-loader
-GOOS=linux GOARCH=amd64 GO111MODULE=on go build -ldflags "-X main.buildVersion=v0.0.1" -o /Users/yoichika/dev/github/kinesis-bulk-loader/dist/kinesis-bulk-loader_linux /Users/yoichika/dev/github/kinesis-bulk-loader/src
-GOOS=darwin GOARCH=amd64 GO111MODULE=on go build -ldflags "-X main.buildVersion=v0.0.1" -o /Users/yoichika/dev/github/kinesis-bulk-loader/dist/kinesis-bulk-loader_darwin /Users/yoichika/dev/github/kinesis-bulk-loader/src
+GOOS=linux GOARCH=amd64 GO111MODULE=on go build -ldflags "-X main.buildVersion=v0.0.1" -o kinesis-bulk-loader/dist/kinesis-bulk-loader_linux_amd64 kinesis-bulk-loader/src
+GOOS=darwin GOARCH=amd64 GO111MODULE=on go build -ldflags "-X main.buildVersion=v0.0.1" -o kinesis-bulk-loader/dist/kinesis-bulk-loader_darwin_amd64 kinesis-bulk-loader/src
+GOOS=windows GOARCH=amd64 GO111MODULE=on go build -ldflags "-X main.buildVersion=v0.0.1" -o kinesis-bulk-loader/dist/kinesis-bulk-loader_windows_amd64 kinesis-bulk-loader/src
 ```
 
 Suppose you are using macOS, run the `kinesis-bulk-loader_darwin` (while `kinesis-bulk-loader_linux` if you are using Linux) like below
 
 ```bash
-./dist/kinesis-bulk-loader_darwin -stream test-kds01 -k hoge -m test -c 10 -n 100 -verbose
+./dist/kinesis-bulk-loader_darwin_amd64 -stream test-kds01 -k hoge -m test -c 10 -n 100 -verbose
 ```
 
 Finally clean built commands
