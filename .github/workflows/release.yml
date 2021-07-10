@@ -1,6 +1,9 @@
 name: Upload Release Asset
 
 on:
+  # manual trigger
+  workflow_dispatch:
+  # push trigger
   push:
     # Sequence of patterns matched against refs/tags
     tags:
