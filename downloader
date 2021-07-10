@@ -14,7 +14,7 @@ VERSION="$1"
 if [ -z "${VERSION}" ]; then
   VERSION=${DEFAULT_VERSION}
 fi
-NAME="kinesis-bulk-loader-${OSTYPE}-${ARCH}"
+NAME="kinesis-bulk-loader_${OSTYPE}_${ARCH}"
 
 echo "Downloading ${NAME} ..."
 curl -L -s https://github.com/yokawasa/kinesis-bulk-loader/releases/download/${VERSION}/${NAME}.zip -o "${COMMAND_NAME}.zip"
