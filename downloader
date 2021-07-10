@@ -1,5 +1,4 @@
 #!/bin/sh
-set -e -x
 DEFAULT_VERSION=$(curl -L -s https://raw.githubusercontent.com/yokawasa/kinesis-bulk-loader/main/VERSION)
 COMMAND_NAME="kinesis-bulk-loader"
 OS="$(uname)"
