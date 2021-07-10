@@ -1,8 +1,9 @@
 #!/bin/sh
-
+set -e -x
 DEFAULT_VERSION=$(curl -L -s https://raw.githubusercontent.com/yokawasa/kinesis-bulk-loader/main/VERSION)
 COMMAND_NAME="kinesis-bulk-loader"
 OS="$(uname)"
+ARCH="amd64"
 
 if [ "${OS}" = "Darwin" ] ; then
   OSTYPE="darwin"
@@ -13,10 +14,12 @@ VERSION="$1"
 if [ -z "${VERSION}" ]; then
   VERSION=${DEFAULT_VERSION}
 fi
-NAME="kinesis-bulk-loader_${OSTYPE}"
+NAME="kinesis-bulk-loader-${OSTYPE}-${ARCH}"
 
 echo "Downloading ${NAME} ..."
-curl -L -s https://github.com/yokawasa/kinesis-bulk-loader/releases/download/${VERSION}/${NAME} -o ${COMMAND_NAME}
+curl -L -s https://github.com/yokawasa/kinesis-bulk-loader/releases/download/${VERSION}/${NAME}.zip -o "${COMMAND_NAME}.zip"
+unzip ${COMMAND_NAME}.zip
+mv ${NAME} ${COMMAND_NAME}
 ls ${COMMAND_NAME} && chmod +x ${COMMAND_NAME}
 echo "Downloaded into ${COMMAND_NAME}"
 echo "Please add ${COMMAND_NAME} to your path; e.g copy paste in your shell and/or ~/.profile"
