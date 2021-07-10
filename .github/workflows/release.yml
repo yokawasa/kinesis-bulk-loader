@@ -65,7 +65,7 @@ jobs:
         run: |
           VERSION=$(cat VERSION)
           GOOS=${GOOS} GOARCH=${GOARCH} GO111MODULE=on \
-            go build  -ldflags "-X main.buildVersion=${VERSION}" \
+            go build -ldflags "-X main.buildVersion=${VERSION}" \
             -o dist/kinesis-bulk-loader_${GOOS}_${GOARCH} src
           zip --junk-paths -r kinesis-bulk-loader dist
       - name: Download Release URL file 
