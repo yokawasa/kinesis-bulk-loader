@@ -63,8 +63,10 @@ jobs:
           GOOS: ${{ matrix.OS }}
           GOARCH: ${{ matrix.ARCH }}
         run: |
-          GOOS=${GOOS} GOARCH=${GOARCH} \
-            go build -o dist/kinesis-bulk-loader_${GOOS}_${GOARCH} .
+          VERSION=$(cat VERSION)
+          GOOS=${GOOS} GOARCH=${GOARCH} GO111MODULE=on \
+            go build  -ldflags "-X main.buildVersion=${VERSION}" \
+            -o dist/kinesis-bulk-loader_${GOOS}_${GOARCH} src
           zip --junk-paths -r kinesis-bulk-loader dist
       - name: Download Release URL file 
         uses: actions/download-artifact@v1
