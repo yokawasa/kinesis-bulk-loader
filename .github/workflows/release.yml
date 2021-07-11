@@ -21,7 +21,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          # release name is the same as tag name
+          release_name: ${{ github.ref }}
           draft: false
           prerelease: false
       # Any variables can not be shared between jobs, thus copy the URL 
