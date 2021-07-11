@@ -28,7 +28,6 @@ Options:
 -region string       Region for Kinesis stream
                      By default "ap-northeast-1"
 -k string            (Required) Partition key
--k string            (Required) Partition key
 -m string            (Required) Message payload to put into the stream
 -c connections       Number of parallel simultaneous Kinesis session
                      By default 1; Must be more than 0
