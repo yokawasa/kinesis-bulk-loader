@@ -126,10 +126,10 @@ Finally clean built commands
 make clean
 ```
 
-## Relevant project
+## Relevant projects
 
-The Kinesis Consumer side can be tested with [yokawasa/amazon-kinesis-consumer](https://github.com/yokawasa/amazon-kinesis-consumer)
-
+- [amazon-kinesis-consumer](https://github.com/yokawasa/amazon-kinesis-consumer): The Kinesis Consumer side can be tested with [amazon-kinesis-consumer](https://github.com/yokawasa/amazon-kinesis-consumer)
+- [sqs-bulk-loader](https://github.com/yokawasa/sqs-bulk-loader): A Golang tool that sends bulk messages in parallel to Amazon SQS
 
 ## Contributing
 
