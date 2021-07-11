@@ -28,6 +28,7 @@ Options:
 -region string       Region for Kinesis stream
                      By default "ap-northeast-1"
 -k string            (Required) Partition key
+-k string            (Required) Partition key
 -m string            (Required) Message payload to put into the stream
 -c connections       Number of parallel simultaneous Kinesis session
                      By default 1; Must be more than 0
@@ -35,6 +36,8 @@ Options:
                      By default 1; Must be more than 0
 -r retry-num         Number fo Retry in each message send
                      By default 1; Must be more than 0
+-endpoint-url string The URL to send the API request to
+                     By default "", which mean the AWS SDK automatically determines the URL
 -version             Prints out build version information
 -verbose             Verbose option
 -h                   help message
@@ -43,6 +46,7 @@ Options:
 type KinesisDataStreamProducer struct {
 	StreamName   string
 	Region       string
+	EndpointUrl  string
 	PartitionKey string
 	Message      string
 	Connections  int
@@ -106,7 +110,7 @@ func (c *KinesisDataStreamProducer) Run() {
 func (c *KinesisDataStreamProducer) startWorker(id int, wg *sync.WaitGroup, successCount *uint32, errorCount *uint32) {
 	defer wg.Done()
 
-	kc := getKinesisSession(c.Region)
+	kc := getKinesisSession(c.Region, c.EndpointUrl)
 	randomString := randomStr(10)
 	message := c.Message + randomString
 	for i := 1; i <= c.NumCalls; i++ {
@@ -137,8 +141,13 @@ func (c *KinesisDataStreamProducer) startWorker(id int, wg *sync.WaitGroup, succ
 	}
 }
 
-func getKinesisSession(region string) *kinesis.Kinesis {
-	sess := session.New(&aws.Config{Region: aws.String(region)})
+func getKinesisSession(region string, endpointUrl string) *kinesis.Kinesis {
+	var sess *session.Session
+	if endpointUrl != "" {
+		sess = session.New(&aws.Config{Region: aws.String(region), Endpoint: aws.String(endpointUrl)})
+	} else {
+		sess = session.New(&aws.Config{Region: aws.String(region)})
+	}
 	return kinesis.New(sess)
 }
 
@@ -147,6 +156,7 @@ func main() {
 	var (
 		streamName   string
 		region       string
+		endpointUrl  string
 		partitionKey string
 		message      string
 		connections  int
@@ -158,6 +168,7 @@ func main() {
 
 	flag.StringVar(&streamName, "stream", "", "(Required) Kinesis stream name")
 	flag.StringVar(&region, "region", "ap-northeast-1", "Region for Kinesis stream")
+	flag.StringVar(&endpointUrl, "endpoint-url", "", "The URL to send the API request to")
 	flag.StringVar(&partitionKey, "k", "", "(Required) Partition Key")
 	flag.StringVar(&message, "m", "", "(Required) Message payload to put into the stream")
 	flag.IntVar(&connections, "c", 1, "Number of parallel simultaneous Kinesis session")
@@ -181,6 +192,7 @@ func main() {
 	s := KinesisDataStreamProducer{
 		StreamName:   streamName,
 		Region:       region,
+		EndpointUrl:  endpointUrl,
 		PartitionKey: partitionKey,
 		Message:      message,
 		Connections:  connections,
