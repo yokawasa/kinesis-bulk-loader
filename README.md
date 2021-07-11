@@ -14,6 +14,7 @@ Options:
 -region string       Region for Kinesis stream
                      By default "ap-northeast-1"
 -k string            (Required) Partition key
+-k string            (Required) Partition key
 -m string            (Required) Message payload to put into the stream
 -c connections       Number of parallel simultaneous Kinesis session
                      By default 1; Must be more than 0
@@ -21,10 +22,11 @@ Options:
                      By default 1; Must be more than 0
 -r retry-num         Number fo Retry in each message send
                      By default 1; Must be more than 0
+-endpoint-url string The URL to send the API request to
+                     By default "", which mean the AWS SDK automatically determines the URL
 -version             Prints out build version information
 -verbose             Verbose option
 -h                   help message
-
 ```
 
 ## Download
@@ -36,7 +38,7 @@ You can download the compiled command with [downloader](https://github.com/yokaw
 ./downloader
 
 # Download the command with a specified version
-./downloader v0.0.2
+./downloader v0.0.3
 ```
 Or you can download it on the fly with the following commmand:
 
@@ -112,7 +114,7 @@ GOOS=darwin GOARCH=amd64 GO111MODULE=on go build -ldflags "-X main.buildVersion=
 GOOS=windows GOARCH=amd64 GO111MODULE=on go build -ldflags "-X main.buildVersion=v0.0.1" -o kinesis-bulk-loader/dist/kinesis-bulk-loader_windows_amd64 kinesis-bulk-loader/src
 ```
 
-Suppose you are using macOS, run the `kinesis-bulk-loader_darwin` (while `kinesis-bulk-loader_linux` if you are using Linux) like below
+Suppose you are using macOS, run the `kinesis-bulk-loader_darwin` (while `kinesis-bulk-loader_linux` if you are using Linux, or `kinesis-bulk-loader_windows` if using Windows) like below
 
 ```bash
 ./dist/kinesis-bulk-loader_darwin_amd64 -stream test-kds01 -k hoge -m test -c 10 -n 100 -verbose
