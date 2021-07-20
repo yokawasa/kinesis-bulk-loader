@@ -1,6 +1,6 @@
 # kinesis-bulk-loader
 
-[![Upload Release Asset](https://github.com/yokawasa/kinesis-bulk-loader/actions/workflows/release.yml/badge.svg)](https://github.com/yokawasa/kinesis-bulk-loader/actions/workflows/release.yml) [![Go Report Card](https://goreportcard.com/badge/github.com/yokawasa/kinesis-bulk-loader)](https://goreportcard.com/report/github.com/yokawasa/kinesis-bulk-loader)
+[![Upload Release Asset](https://github.com/yokawasa/kinesis-bulk-loader/actions/workflows/release.yml/badge.svg)](https://github.com/yokawasa/kinesis-bulk-loader/actions/workflows/release.yml) [![Go Report Card](https://goreportcard.com/badge/github.com/yokawasa/kinesis-bulk-loader)](https://goreportcard.com/report/github.com/yokawasa/kinesis-bulk-loader) [![GoDoc](https://godoc.org/github.com/yokawasa/kinesis-bulk-loader?status.svg)](https://godoc.org/github.com/yokawasa/kinesis-bulk-loader)
 
 A Golang tool that put bulk messages in parallel to AWS Kinesis Data Stream.
 
