@@ -37,21 +37,23 @@ Options:
                      By default 1; Must be more than 0
 -endpoint-url string The URL to send the API request to
                      By default "", which mean the AWS SDK automatically determines the URL
+-append-random-str   Append random string to message payload
 -version             Prints out build version information
 -verbose             Verbose option
 -h                   help message
 `
 
 type KinesisDataStreamProducer struct {
-	StreamName   string
-	Region       string
-	EndpointUrl  string
-	PartitionKey string
-	Message      string
-	Connections  int
-	NumCalls     int
-	RetryNum     int
-	Verbose      bool
+	StreamName      string
+	Region          string
+	EndpointUrl     string
+	PartitionKey    string
+	Message         string
+	Connections     int
+	NumCalls        int
+	RetryNum        int
+	AppendRandomStr bool
+	Verbose         bool
 }
 
 func randomStr(n int) string {
@@ -111,7 +113,10 @@ func (c *KinesisDataStreamProducer) startWorker(id int, wg *sync.WaitGroup, succ
 
 	kc := getKinesisSession(c.Region, c.EndpointUrl)
 	randomString := randomStr(10)
-	message := c.Message + randomString
+	message := c.Message
+	if c.AppendRandomStr {
+		message += randomString
+	}
 	for i := 1; i <= c.NumCalls; i++ {
 		if c.Verbose {
 			fmt.Printf("[Verbose] Mssage: PartitionKey %s Data %s\n", c.PartitionKey, message)
@@ -153,16 +158,17 @@ func getKinesisSession(region string, endpointUrl string) *kinesis.Kinesis {
 func main() {
 
 	var (
-		streamName   string
-		region       string
-		endpointUrl  string
-		partitionKey string
-		message      string
-		connections  int
-		numCalls     int
-		retryNum     int
-		version      bool
-		verbose      bool
+		streamName      string
+		region          string
+		endpointUrl     string
+		partitionKey    string
+		message         string
+		connections     int
+		numCalls        int
+		retryNum        int
+		version         bool
+		appendRandomStr bool
+		verbose         bool
 	)
 
 	flag.StringVar(&streamName, "stream", "", "(Required) Kinesis stream name")
@@ -173,6 +179,7 @@ func main() {
 	flag.IntVar(&connections, "c", 1, "Number of parallel simultaneous Kinesis session")
 	flag.IntVar(&numCalls, "n", 1, "Run for exactly this number of calls by each Kinesis session")
 	flag.IntVar(&retryNum, "r", 1, "Number fo Retry in each message send")
+	flag.BoolVar(&appendRandomStr, "append-random-str", false, "Append random string to message payload")
 	flag.BoolVar(&version, "version", false, "Build version")
 	flag.BoolVar(&verbose, "verbose", false, "Verbose option")
 	flag.Usage = usage
@@ -189,15 +196,16 @@ func main() {
 	}
 
 	s := KinesisDataStreamProducer{
-		StreamName:   streamName,
-		Region:       region,
-		EndpointUrl:  endpointUrl,
-		PartitionKey: partitionKey,
-		Message:      message,
-		Connections:  connections,
-		NumCalls:     numCalls,
-		RetryNum:     retryNum,
-		Verbose:      verbose,
+		StreamName:      streamName,
+		Region:          region,
+		EndpointUrl:     endpointUrl,
+		PartitionKey:    partitionKey,
+		Message:         message,
+		Connections:     connections,
+		NumCalls:        numCalls,
+		RetryNum:        retryNum,
+		AppendRandomStr: appendRandomStr,
+		Verbose:         verbose,
 	}
 
 	s.Run()

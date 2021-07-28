@@ -2,6 +2,10 @@
 
 All notable changes to the "kinesis-bulk-loader" will be documented in this file.
 
+## v0.0.4
+
+- Add `-append-random-str` to append random string to message payload that you give with -m option
+
 ## v0.0.3
 
 - Add `-endpoint-url` to specify the URL to send the API request to. For most cases, the AWS SDK automatically determines the URL based on the selected service and the specified AWS Region
