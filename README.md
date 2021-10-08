@@ -128,6 +128,7 @@ make clean
 
 ## Relevant projects
 
+- [kinesis-get-shardid](https://github.com/yokawasa/kinesis-get-shardid): A Golang tool that get a shard ID to be assigned in AWS Kinesis Data Stream from a partition key.
 - [kinesis-consumer](https://github.com/yokawasa/kinesis-consumer): The Kinesis Consumer side can be tested with [kinesis-consumer](https://github.com/yokawasa/kinesis-consumer)
 - [sqs-bulk-loader](https://github.com/yokawasa/sqs-bulk-loader): A Golang tool that sends bulk messages in parallel to Amazon SQS
 
